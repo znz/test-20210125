@@ -30,7 +30,7 @@ jobs:
       run: |
         set -x
         docker restart ${{ job.services.mysql.id }}
-        for sleep in 0 ${WAITS:- 1 25 100}; do
+        for sleep in 0 ${WAITS:- 1 2 4 8 15 25 100}; do
           sleep "$sleep"
           health_status=`docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" ${{ job.services.mysql.id }}`
           if [ 'starting' != "$health_status" ]; then

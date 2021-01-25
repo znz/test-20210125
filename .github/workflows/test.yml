@@ -33,7 +33,7 @@ jobs:
         for sleep in 0 ${WAITS:- 1 25 100}; do
           sleep "$sleep"
           health_status=`docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" ${{ job.services.mysql.id }}`
-          if [ 'healthy' != "$health_status" ]; then
+          if [ 'starting' != "$health_status" ]; then
             exit 0
           fi
         done

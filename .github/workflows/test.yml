@@ -25,11 +25,11 @@ jobs:
     - name: Add conf
       run: |
         set -x
-        docker cp ./mysql/conf.d/test.cnf {{ job.services.mysql.id }}:/etc/mysql/conf.d/
+        docker cp ./mysql/conf.d/test.cnf ${{ job.services.mysql.id }}:/etc/mysql/conf.d/
     - name: Restart mysql
       run: |
         set -x
-        docker restart {{ job.services.mysql.id }}
+        docker restart ${{ job.services.mysql.id }}
     - name: Show variables
       run: |
         set -x

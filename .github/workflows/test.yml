@@ -21,13 +21,12 @@ jobs:
       run: |
         mysql -h 127.0.0.1 --port 3306 -u root -ptest_password -e "SHOW GLOBAL VARIABLES LIKE 'innodb_ft_min_token_size';"
     - uses: actions/checkout@v2
-    - run: docker ps
     - name: Add conf
       run: |
-        docker cp ./mysql/conf.d/test.cnf mysql:/etc/mysql/conf.d/
+        docker cp ./mysql/conf.d/test.cnf {{ job.services.mysql.id }}:/etc/mysql/conf.d/
     - name: Restart mysql
       run: |
-        docker restart mysql
+        docker restart {{ job.services.mysql.id }}
     - name: Show variables
       run: |
         mysql -h 127.0.0.1 --port 3306 -u root -ptest_password -e "SHOW GLOBAL VARIABLES LIKE 'innodb_ft_min_token_size';"
